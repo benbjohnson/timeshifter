@@ -59,4 +59,13 @@ class TimeshifterTestCase < MiniTest::Unit::TestCase
     shifter = Timeshifter.new([0..8, 16..24])
     assert_equal 'Fri Jan 01 23:59:59 UTC 2010', shifter.shift(Time.utc(2010, 1, 1, 23, 59, 59)).to_s
   end
+
+
+  def test_should_shift_ranges_specified_in_readme
+    shifter = Timeshifter.new([0..9, 17..24])
+    assert_equal 'Fri Jan 01 00:00:00 UTC 2010', shifter.shift(Time.utc(2010, 1, 1, 0, 0, 0)).to_s
+    assert_equal 'Fri Jan 01 08:00:00 UTC 2010', shifter.shift(Time.utc(2010, 1, 1, 12, 0, 0)).to_s
+    assert_equal 'Fri Jan 01 20:00:00 UTC 2010', shifter.shift(Time.utc(2010, 1, 1, 18, 0, 0)).to_s
+    assert_equal 'Fri Jan 01 23:59:59 UTC 2010', shifter.shift(Time.utc(2010, 1, 1, 23, 59, 59)).to_s
+  end
 end
